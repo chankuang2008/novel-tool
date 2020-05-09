@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
   <style>
     body {
+      padding-bottom: 24px;
       font-family: "SimHei", "PMingLiU", "Helvetica", "sans-serif";
       background-color: #f8f9fa;
       font-size: 13px;
@@ -17,10 +18,12 @@
     }
     .bg-light {
       background-color: #ffffff!important;
-
     }
     .navbar-light .navbar-brand,
     .navbar-light .navbar-brand:hover {
+      color: #ff5754;
+    }
+    .highlight {
       color: #ff5754;
     }
     #content {
@@ -28,13 +31,15 @@
       padding-top: 24px;
       padding-bottom: 24px;
       background-color: #ffffff;
+      webkit-box-shadow: 0 1px 3px rgba(0,0,0,.1);
+      box-shadow: 0 1px 3px rgba(0,0,0,.1);
     }
     .form-control {
       font-size: 13px;
     }
     .form-control:focus {
-      border-color: #ced4da;
-      box-shadow: 0 0 0 0.2rem #fff;
+      border-color: #ffb6b4;
+      box-shadow: 0 0 0 1px #ffb6b4;
     }
     .form-group textarea {
       resize: none;
@@ -74,20 +79,24 @@
   var ui = {}
   // 
   var datas = {
-    startGenre: ['重生流', '穿越流', '无限流', '回炉流', '送菜流'],
+    startGenre: ['重生流', '穿越流', '无限流', '回炉流', '送菜流', '神豪流', '陨落流'],
     classicPlots: ['救美', '采药', '夺宝', '炼丹', '反抢', '踏人', '体悟', '副本', '升级', '反杀'],
     masterPlots: ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
+    speed: ['人物成长速度', '情感发展速度', '仇恨完结速度', '目标完成速度'],
+    desire: ['秘笈', '法宝', '男票', '女票', '队友', '丹药', '道具', '新线索', '新地图', '亲情', '报恩', '报仇'],
   };
   // 
   var datas2 = {
     selStratGenre: {title: '开篇手法', dataKey: 'startGenre'},
     selClassicPlots: {title: '网文情节', dataKey: 'classicPlots'},
     selMasterPlots: {title: '电影情节', dataKey: 'masterPlots'},
+    selSpeed: {title: '发展速度', dataKey: 'speed'},
+    selDesire: {title: '生现欲望', dataKey: 'desire'}
   }
 
   function initUI() {
     ui.input = $("input")
-    ui.content = $("#content2");
+    ui.content2 = $("#content2");
     ui.btnClean = $("#btnClean");
 
     ui.taCharacter1 = $("#taCharacter1");
@@ -97,6 +106,11 @@
     ui.taSetting1 = $("#taSetting1");
     ui.taSetting2 = $("#taSetting2");
     ui.taSetting3 = $("#taSetting3");
+
+    ui.taOutline1 = $("#taOutline1");
+    ui.taOutline2 = $("#taOutline2");
+    ui.taOutline3 = $("#taOutline3");
+    ui.taOutline4 = $("#taOutline4");
   }
 
   $(function(){
@@ -117,6 +131,11 @@
     renderLocalStorage(ui.taSetting2, '升级系统');
     renderLocalStorage(ui.taSetting3, '目标');
 
+    renderLocalStorage(ui.taOutline1, '细纲1');
+    renderLocalStorage(ui.taOutline2, '细纲2');
+    renderLocalStorage(ui.taOutline3, '细纲3');
+    renderLocalStorage(ui.taOutline4, '细纲4');
+
     // 清理 
     ui.btnClean.click(function() {
       localStorage.clear();
@@ -127,7 +146,7 @@
   function renderRowSelector(id, title) {
     // 渲染
     var html = '<div class="row mb-4"><div class="col-12 col-sm-12"><div class="mb-2">'+title+'</div><fieldset id="'+id+'"></fieldset></div></div>';
-    ui.content.append(html);
+    ui.content2.append(html);
     ui[id] = $('#'+id)
   }
 
@@ -215,7 +234,7 @@
             <textarea class="form-control" id="taCharacter2" rows="2"></textarea>
           </div>
           <div class="form-group col-md-4">
-            <label for="character2">炮灰配脚</label>
+            <label for="character2">炮灰配脚 / 队友 / 反派</label>
             <textarea class="form-control" id="taCharacter3" rows="2"></textarea>
           </div>
         </div>
@@ -234,12 +253,53 @@
             <textarea class="form-control" id="taSetting1" rows="3"></textarea>
           </div>
           <div class="form-group col-md-4">
-            <label for="character2">升级系统</label>
+            <label for="character2">升级系统 / 主神系统 / 金手指</label>
             <textarea class="form-control" id="taSetting2" rows="3"></textarea>
           </div>
           <div class="form-group col-md-4">
-            <label for="character2">目标</label>
+            <label for="character2">主线 / 目标 / 副本</label>
             <textarea class="form-control" id="taSetting3" rows="3"></textarea>
+            <small class="form-text text-muted">
+              伏笔：<br />
+              长目标：6w字。中目标：3w字。短目标：1w字。<br />
+              主线任务，支线任务，副本。
+            </small>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+    <div class="row">
+    <div class="col-12 col-sm-12">
+      <hr />
+      <div class="mb-2">开局细纲：主角、主线、伏笔、开场 （细纲20字以内）</div>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="character1">细纲1</label>
+            <textarea class="form-control" id="taOutline1" rows="1"></textarea>
+            <small class="form-text text-muted">
+              矛盾、对比（如：家破人亡、被人欺凌，资质测试）<br />
+              刷主角存在感
+            </small>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="character2">细纲2</label>
+            <textarea class="form-control" id="taOutline2" rows="1"></textarea>
+            <small class="form-text text-muted">
+              对手、困境、阻碍、伏笔
+            </small>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="character2">细纲3</label>
+            <textarea class="form-control" id="taOutline3" rows="1"></textarea>
+            <small class="form-text text-muted">
+              背景、短期目标、冲突、小高潮
+            </small>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="character2">细纲4</label>
+            <textarea class="form-control" id="taOutline4" rows="1"></textarea>
           </div>
         </div>
       </form>
