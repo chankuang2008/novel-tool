@@ -74,7 +74,7 @@
   var ui = {}
   // 
   var datas = {
-    startGenre: ['重生流', '穿越流', '无限流', '回炉流'],
+    startGenre: ['重生流', '穿越流', '无限流', '回炉流', '送菜流'],
     classicPlots: ['救美', '采药', '夺宝', '炼丹', '反抢', '踏人', '体悟', '副本', '升级', '反杀'],
     masterPlots: ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
   };
@@ -87,10 +87,16 @@
 
   function initUI() {
     ui.input = $("input")
-    ui.content = $("#content");
+    ui.content = $("#content2");
     ui.btnClean = $("#btnClean");
+
     ui.taCharacter1 = $("#taCharacter1");
     ui.taCharacter2 = $("#taCharacter2");
+    ui.taCharacter3 = $("#taCharacter3");
+
+    ui.taSetting1 = $("#taSetting1");
+    ui.taSetting2 = $("#taSetting2");
+    ui.taSetting3 = $("#taSetting3");
   }
 
   $(function(){
@@ -105,6 +111,11 @@
     // 文字框
     renderLocalStorage(ui.taCharacter1, '1号女猪脚');
     renderLocalStorage(ui.taCharacter2, '1号男猪脚');
+    renderLocalStorage(ui.taCharacter3, '炮灰配脚');
+
+    renderLocalStorage(ui.taSetting1, '世界观');
+    renderLocalStorage(ui.taSetting2, '升级系统');
+    renderLocalStorage(ui.taSetting3, '目标');
 
     // 清理 
     ui.btnClean.click(function() {
@@ -192,20 +203,47 @@
   <div class="container" id="content">
 
     <div class="row">
-      <div class="col-12 col-sm-12">
-        <form>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="character1">1号女猪脚</label>
-              <textarea class="form-control" id="taCharacter1" rows="3"></textarea>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="character2">1号男猪脚</label>
-              <textarea class="form-control" id="taCharacter2" rows="3"></textarea>
-            </div>
+    <div class="col-12 col-sm-12">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="character1">1号女猪脚</label>
+            <textarea class="form-control" id="taCharacter1" rows="2"></textarea>
           </div>
-        </form>
-      </div>
+          <div class="form-group col-md-4">
+            <label for="character2">1号男猪脚</label>
+            <textarea class="form-control" id="taCharacter2" rows="2"></textarea>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="character2">炮灰配脚</label>
+            <textarea class="form-control" id="taCharacter3" rows="2"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+
+    <div id="content2"></div>
+
+    <div class="row">
+    <div class="col-12 col-sm-12">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="character1">世界观</label>
+            <textarea class="form-control" id="taSetting1" rows="3"></textarea>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="character2">升级系统</label>
+            <textarea class="form-control" id="taSetting2" rows="3"></textarea>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="character2">目标</label>
+            <textarea class="form-control" id="taSetting3" rows="3"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
     </div>
 
   </div>
