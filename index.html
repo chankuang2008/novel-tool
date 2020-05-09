@@ -83,7 +83,8 @@
     classicPlots: ['救美', '采药', '夺宝', '炼丹', '反抢', '踏人', '体悟', '副本', '升级', '反杀'],
     masterPlots: ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
     speed: ['人物成长速度', '情感发展速度', '仇恨完结速度', '目标完成速度'],
-    desire: ['秘笈', '法宝', '男票', '女票', '队友', '丹药', '道具', '新线索', '新地图', '亲情', '报恩', '报仇'],
+    desire: ['秘笈', '装备', '法宝', '男票', '女票', '队友', '丹药', '道具', '新线索', '新地图', '亲情', '报恩', '报仇'],
+    excite: ['先仰后扬', '装备法宝', '收获女神', '收获男神', '成长', '优越感', '送菜']
   };
   // 
   var datas2 = {
@@ -91,7 +92,8 @@
     selClassicPlots: {title: '网文情节', dataKey: 'classicPlots'},
     selMasterPlots: {title: '电影情节', dataKey: 'masterPlots'},
     selSpeed: {title: '发展速度', dataKey: 'speed'},
-    selDesire: {title: '生现欲望', dataKey: 'desire'}
+    selDesire: {title: '生现欲望', dataKey: 'desire'},
+    selExcite: {title: '爽点', dataKey: 'excite'}
   }
 
   function initUI() {
@@ -269,6 +271,7 @@
       </form>
     </div>
     </div>
+
     <div class="row">
     <div class="col-12 col-sm-12">
       <hr />
@@ -279,7 +282,7 @@
             <label for="character1">细纲1</label>
             <textarea class="form-control" id="taOutline1" rows="1"></textarea>
             <small class="form-text text-muted">
-              矛盾、对比（如：家破人亡、被人欺凌，资质测试）<br />
+              矛盾、对比（如：家破人亡、被人欺凌，资质测试、家族不待见）<br />
               刷主角存在感
             </small>
           </div>
@@ -294,15 +297,37 @@
             <label for="character2">细纲3</label>
             <textarea class="form-control" id="taOutline3" rows="1"></textarea>
             <small class="form-text text-muted">
-              背景、短期目标、冲突、小高潮
+              背景、短期目标、冲突、小高潮<br />
+              强化主角属性
             </small>
           </div>
           <div class="form-group col-md-3">
             <label for="character2">细纲4</label>
             <textarea class="form-control" id="taOutline4" rows="1"></textarea>
+            <small class="form-text text-muted">
+              主角奇遇
+            </small>
           </div>
         </div>
       </form>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="col-12 col-sm-12">
+      <hr />
+      <div class="mb-2">反问：</div>
+      1. 用50字对你的故事进行概括。<br />
+      2. 故事的中心目的是什麽？（问包形式）<br />
+      3. 主角的目的是什麽？<br />
+      4. 主角的动机是什麽？<br />
+      5. 谁或什麽阻碍主角？<br />
+      6. 为了实现目的，主角制订什麽行动计划？<br />
+      7. 核心冲突是什麽？<br />
+      8. 主角成长是什麽？<br />
+      9. 是主角还是行动为核心？<br />
+      10. 如何维持气氛？<br />
+      12. 如何推至高潮？<br />
     </div>
     </div>
 
