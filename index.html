@@ -1,18 +1,196 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <title>网文辅助写作器</title>
+  <title>网文辅助写作器（女频模版）</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+  <style>
+    body {
+      font-family: "SimHei", "PMingLiU", "Helvetica", "sans-serif";
+      background-color: #f8f9fa;
+      font-size: 12px;
+      color: #656565;
+    }
+    .bg-light {
+      background-color: #ffffff!important;
+
+    }
+    .navbar-light .navbar-brand,
+    .navbar-light .navbar-brand:hover {
+      color: #ff5754;
+    }
+    #content {
+      margin-top: 12px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+      background-color: #ffffff;
+    }
+    .form-control {
+      font-size: 13px;
+    }
+    .form-control:focus {
+      border-color: #ced4da;
+      box-shadow: 0 0 0 0.2rem #fff;
+    }
+    .form-group textarea {
+      resize: none;
+    }
+    .ui-widget {
+      font-size: 12px;
+    }
+    .ui-state-active, 
+    .ui-widget-content .ui-state-active, 
+    .ui-widget-header .ui-state-active, 
+    a.ui-button:active, .ui-button:active, 
+    .ui-button.ui-state-active:hover {
+      border: 1px solid #faeded;
+      background: #ff7e7e;
+    }
+    .ui-visual-focus{
+      box-shadow:0 0 3px 1px #fff;
+    }
+    .header-btm {
+      height: 1px;
+      background-color: #000;
+      opacity: .12;
+      z-index: 990;
+      -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.8);
+      box-shadow: 0 1px 3px rgba(0,0,0,.8);
+    }
+  </style>
+  <script>
+  var ui = {}
+  var datas = {
+    masterPlots: 
+      ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', 
+       '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
+  };
+
+  function initUI() {
+    ui.input = $("input")
+    ui.selMasterPlots = $("#master-plots");
+    ui.btnClean = $("#btnClean");
+
+    ui.taCharacter1 = $("#taCharacter1");
+    ui.taCharacter2 = $("#taCharacter2");
+  }
+
+  function renderMultiSelector(div, key) {
+    for (var i in datas[key]) {
+      var v = datas[key][i];
+      var n = key+'-'+i
+      // 渲染
+      div.append('<label for="'+n+'">'+v+'</label> <input type="checkbox" name="'+n+'" id="'+n+'" data-value="'+v+'">');
+
+      // 视图
+      if (!(key in ui)) {ui[key] = []};
+      ui[key].push($('#'+n));
+
+      // 刷新组件
+      var cur = ui[key].slice(-1)[0];
+      cur.checkboxradio({icon: false});
+
+      // 是否已点选
+      if (localStorage.getItem(v) == 'true')
+        cur.click();
+
+      // 绑定事件
+      cur.click(function () {
+        var v2 = $(this).data("value"), [key2, id2] = this.id.split("-");
+        var v3 = localStorage.getItem(v2);
+        // 点选
+        if (v3 === null)
+          localStorage.setItem(v2, true);
+        // 点选
+        else if (v3 == 'true')
+          localStorage.setItem(v2, false);
+        // 剔除
+        else if (v3 == 'false')
+          localStorage.setItem(v2, true);
+      });
+    }
+  }
+
+  function renderLocalStorage(div, key) {
+    // 渲染
+    var v4 = localStorage.getItem(key);
+    if (!(v4 === null))
+      div.text(v4);
+    // 绑定事件
+    div.on('input',function() {
+      // 储存
+      localStorage.setItem(key, $(this).val());
+    });
+  }
+
+  $(function(){
+    initUI();
+
+    renderMultiSelector(ui.selMasterPlots, 'masterPlots');
+
+    renderLocalStorage(ui.taCharacter1, '一号猪脚');
+    renderLocalStorage(ui.taCharacter2, '一号配脚');
+
+    ui.btnClean.click(function() {
+      localStorage.clear();
+      location.reload();
+    });
+  });
+  </script>
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-sm-12">
-        <h1> 匡匡稻 </h1>
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">网文辅助写作器</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#"></a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+          <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" type="button" id="btnClean">清除</button>
+        </form>
       </div>
     </div>
+  </nav>
+
+  <div class="header-btm"></div>
+
+  <div class="container" id="content">
+
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="character1">一号猪脚</label>
+              <textarea class="form-control" id="taCharacter1" rows="3"></textarea>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="character2">一号配脚</label>
+              <textarea class="form-control" id="taCharacter2" rows="3"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        20种经典情节
+        <fieldset id='master-plots'>
+        </fieldset>
+      </div>
+    </div>
+
   </div>
 </body>
 </html>
