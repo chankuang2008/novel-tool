@@ -12,7 +12,7 @@
     body {
       font-family: "SimHei", "PMingLiU", "Helvetica", "sans-serif";
       background-color: #f8f9fa;
-      font-size: 12px;
+      font-size: 13px;
       color: #656565;
     }
     .bg-light {
@@ -60,6 +60,14 @@
       z-index: 990;
       -webkit-box-shadow: 0 1px 3px rgba(0,0,0,.8);
       box-shadow: 0 1px 3px rgba(0,0,0,.8);
+    }
+    .btn-outline-danger {
+      color: #ff5754;
+      border-color: #ff5754;
+      border-top-color: rgb(220, 53, 69);
+      border-right-color: rgb(220, 53, 69);
+      border-bottom-color: rgb(220, 53, 69);
+      border-left-color: rgb(220, 53, 69);
     }
   </style>
   <script>
@@ -132,8 +140,8 @@
 
     renderMultiSelector(ui.selMasterPlots, 'masterPlots');
 
-    renderLocalStorage(ui.taCharacter1, '一号猪脚');
-    renderLocalStorage(ui.taCharacter2, '一号配脚');
+    renderLocalStorage(ui.taCharacter1, '1号女猪脚');
+    renderLocalStorage(ui.taCharacter2, '1号男猪脚');
 
     ui.btnClean.click(function() {
       localStorage.clear();
@@ -152,9 +160,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#"></a>
-          </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" type="button" id="btnClean">清除</button>
@@ -172,11 +177,11 @@
         <form>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="character1">一号猪脚</label>
+              <label for="character1">1号女猪脚</label>
               <textarea class="form-control" id="taCharacter1" rows="3"></textarea>
             </div>
             <div class="form-group col-md-6">
-              <label for="character2">一号配脚</label>
+              <label for="character2">1号男猪脚</label>
               <textarea class="form-control" id="taCharacter2" rows="3"></textarea>
             </div>
           </div>
