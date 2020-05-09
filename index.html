@@ -74,18 +74,34 @@
   var ui = {}
   var datas = {
     masterPlots: 
-      ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', 
-       '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
+      ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
+    startGenre: ['重生流', '穿越流', '无限流', '回炉流']
   };
 
   function initUI() {
     ui.input = $("input")
-    ui.selMasterPlots = $("#master-plots");
     ui.btnClean = $("#btnClean");
+    ui.selStratGenre = $('#start-genre');
+    ui.selMasterPlots = $("#master-plots");
 
     ui.taCharacter1 = $("#taCharacter1");
     ui.taCharacter2 = $("#taCharacter2");
   }
+
+  $(function(){
+    initUI();
+
+    renderMultiSelector(ui.selStratGenre, 'startGenre');
+    renderMultiSelector(ui.selMasterPlots, 'masterPlots');
+
+    renderLocalStorage(ui.taCharacter1, '1号女猪脚');
+    renderLocalStorage(ui.taCharacter2, '1号男猪脚');
+
+    ui.btnClean.click(function() {
+      localStorage.clear();
+      location.reload();
+    });
+  });
 
   function renderMultiSelector(div, key) {
     for (var i in datas[key]) {
@@ -134,20 +150,6 @@
       localStorage.setItem(key, $(this).val());
     });
   }
-
-  $(function(){
-    initUI();
-
-    renderMultiSelector(ui.selMasterPlots, 'masterPlots');
-
-    renderLocalStorage(ui.taCharacter1, '1号女猪脚');
-    renderLocalStorage(ui.taCharacter2, '1号男猪脚');
-
-    ui.btnClean.click(function() {
-      localStorage.clear();
-      location.reload();
-    });
-  });
   </script>
 </head>
 <body>
@@ -189,9 +191,17 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mb-4">
       <div class="col-12 col-sm-12">
-        20种经典情节
+        <div class="mb-2">开篇手法</div>
+        <fieldset id='start-genre'>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="row mb-4">
+      <div class="col-12 col-sm-12">
+        <div class="mb-2">经典情节</div>
         <fieldset id='master-plots'>
         </fieldset>
       </div>
