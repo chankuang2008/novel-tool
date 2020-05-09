@@ -72,18 +72,23 @@
   </style>
   <script>
   var ui = {}
+  // 
   var datas = {
-    masterPlots: 
-      ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
-    startGenre: ['重生流', '穿越流', '无限流', '回炉流']
+    startGenre: ['重生流', '穿越流', '无限流', '回炉流'],
+    classicPlots: ['救美', '采药', '夺宝', '炼丹', '反抢', '踏人', '体悟', '副本', '升级', '反杀'],
+    masterPlots: ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
   };
+  // 
+  var datas2 = {
+    selStratGenre: {title: '开篇手法', dataKey: 'startGenre'},
+    selClassicPlots: {title: '网文情节', dataKey: 'classicPlots'},
+    selMasterPlots: {title: '电影情节', dataKey: 'masterPlots'},
+  }
 
   function initUI() {
     ui.input = $("input")
+    ui.content = $("#content");
     ui.btnClean = $("#btnClean");
-    ui.selStratGenre = $('#start-genre');
-    ui.selMasterPlots = $("#master-plots");
-
     ui.taCharacter1 = $("#taCharacter1");
     ui.taCharacter2 = $("#taCharacter2");
   }
@@ -91,17 +96,29 @@
   $(function(){
     initUI();
 
-    renderMultiSelector(ui.selStratGenre, 'startGenre');
-    renderMultiSelector(ui.selMasterPlots, 'masterPlots');
+    // 多项选择
+    for (var k in datas2) {
+      renderRowSelector(k, datas2[k].title);
+      renderMultiSelector(ui[k], datas2[k].dataKey);
+    }
 
+    // 文字框
     renderLocalStorage(ui.taCharacter1, '1号女猪脚');
     renderLocalStorage(ui.taCharacter2, '1号男猪脚');
 
+    // 清理 
     ui.btnClean.click(function() {
       localStorage.clear();
       location.reload();
     });
   });
+
+  function renderRowSelector(id, title) {
+    // 渲染
+    var html = '<div class="row mb-4"><div class="col-12 col-sm-12"><div class="mb-2">'+title+'</div><fieldset id="'+id+'"></fieldset></div></div>';
+    ui.content.append(html);
+    ui[id] = $('#'+id)
+  }
 
   function renderMultiSelector(div, key) {
     for (var i in datas[key]) {
@@ -188,22 +205,6 @@
             </div>
           </div>
         </form>
-      </div>
-    </div>
-
-    <div class="row mb-4">
-      <div class="col-12 col-sm-12">
-        <div class="mb-2">开篇手法</div>
-        <fieldset id='start-genre'>
-        </fieldset>
-      </div>
-    </div>
-
-    <div class="row mb-4">
-      <div class="col-12 col-sm-12">
-        <div class="mb-2">经典情节</div>
-        <fieldset id='master-plots'>
-        </fieldset>
       </div>
     </div>
 
