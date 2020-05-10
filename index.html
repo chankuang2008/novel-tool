@@ -25,7 +25,8 @@
     .highlight {
       color: #ff5754;
     }
-    #content {
+    #content,
+    .about-me-content {
       margin-top: 12px;
       padding-top: 24px;
       padding-bottom: 24px;
@@ -84,7 +85,25 @@
       padding: 20px 0px 20px 0px;
       color: #ff5754;
       text-align: right;
-      font-size: 10px;
+      font-size: 12px;
+    }
+    a {
+      color: #ff5754;
+    }
+    a:hover {
+      color: #ff0c08;
+    }
+    .close {
+      color: #ff0c08;
+    }
+    .about-me-content {
+      display: none;
+    }
+    .about-me-content span {
+      font-size: 14px;
+    }
+    .about-me-img {
+      width: 200px;
     }
   </style>
   <script>
@@ -106,14 +125,18 @@
     selMasterPlots: {title: '电影情节', dataKey: 'masterPlots'},
     selDramaticSituations: {title: '三十六剧', dataKey: 'DramaticSituations'},
     selSpeed: {title: '发展速度', dataKey: 'speed'},
-    selDesire: {title: '生现欲望', dataKey: 'desire'},
+    selDesire: {title: '生理欲望', dataKey: 'desire'},
     selExcite: {title: '爽点', dataKey: 'excite'},
   }
 
   function initUI() {
+    ui.tvYear = $('.year')
+    ui.alAboutMe = $('.aboutMe');
+    ui.divAboutMeContent = $('.about-me-content');
     ui.input = $("input")
     ui.content2 = $("#content2");
     ui.btnClean = $("#btnClean");
+    ui.alClose = $(".close");
 
     ui.taCharacter1 = $("#taCharacter1");
     ui.taCharacter2 = $("#taCharacter2");
@@ -127,6 +150,11 @@
     ui.taOutline2 = $("#taOutline2");
     ui.taOutline3 = $("#taOutline3");
     ui.taOutline4 = $("#taOutline4");
+
+    ui.taOutline5 = $("#taOutline5");
+    ui.taOutline6 = $("#taOutline6");
+    ui.taOutline7 = $("#taOutline7");
+    ui.taOutline8 = $("#taOutline8");
 
     ui.taSummary = $('#taSummary');
   }
@@ -154,12 +182,28 @@
     renderLocalStorage(ui.taOutline3, '细纲3');
     renderLocalStorage(ui.taOutline4, '细纲4');
 
+    renderLocalStorage(ui.taOutline5, '细纲5');
+    renderLocalStorage(ui.taOutline6, '细纲6');
+    renderLocalStorage(ui.taOutline7, '细纲7');
+    renderLocalStorage(ui.taOutline8, '细纲8');
+
     renderLocalStorage(ui.taSummary, '总结');   
 
     // 清理 
     ui.btnClean.click(function() {
       localStorage.clear();
       location.reload();
+    });
+
+    // 页尾
+    ui.tvYear.text(new Date().getFullYear().toString());
+
+    // 自介
+    ui.alAboutMe.click(function() {
+      ui.divAboutMeContent.toggle();
+    });
+    ui.alClose.click(function() {
+      ui.divAboutMeContent.toggle();
     });
   });
 
@@ -223,7 +267,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="">网文辅助写作器</a>
+      <a class="navbar-brand" href="#">网文辅助写作器</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -238,6 +282,25 @@
   </nav>
 
   <div class="header-btm"></div>
+
+  <div class="container about-me-content">
+    <div class="row">
+      <div class="col-12 col-sm-12">
+        <span>关於我</span>
+        <a href="#" class="close">「关闭」</a>
+        <div class="mb-2"></div> 
+        <img class="about-me-img" src="https://chankuang2008.github.io/novel-tool/2062009398_meitu_1.jpg" class="rounded float-left" alt="照骗"> <br />
+        姓名：匡匡稻 <br />
+        年龄：目前25岁（大龄剩货）<br />
+        工作：金融科技 <br />
+        地区：深圳 <br />
+        鹅号：571287855 <br />
+        作品：都市除灵大教主 / 炼虫女王：都市末日行 <br />
+        写作年资：初中开始，中途放弃了很多年了。 <br />
+        PS: 照骗时大学时Cos拍的，与现实本人不符合！<br />
+      </div>
+    </div>
+  </div>
 
   <div class="container" id="content">
 
@@ -332,6 +395,43 @@
     </div>
 
     <div class="row">
+    <div class="col-12 col-sm-12">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="character1">细纲5</label>
+            <textarea class="form-control" id="taOutline5" rows="1"></textarea>
+            <small class="form-text text-muted">
+
+            </small>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="character2">细纲6</label>
+            <textarea class="form-control" id="taOutline6" rows="1"></textarea>
+            <small class="form-text text-muted">
+
+            </small>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="character2">细纲7</label>
+            <textarea class="form-control" id="taOutline7" rows="1"></textarea>
+            <small class="form-text text-muted">
+
+            </small>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="character2">细纲8</label>
+            <textarea class="form-control" id="taOutline8" rows="1"></textarea>
+            <small class="form-text text-muted">
+
+            </small>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
+
+    <div class="row">
     <div class="col-12">
       <hr />
     </div>
@@ -359,7 +459,7 @@
   <footer>
     <div class="container">
       <div class="footer-content">
-        @Copyright © 2020 匡匡稻 QQ: 571287855
+        @Copyright © <span class="year"></span> 匡匡稻 | <a href="#" class="aboutMe">关於我</a>
       </div>
     </div>
   </footer>
