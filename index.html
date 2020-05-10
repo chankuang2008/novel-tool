@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>网文辅助写作器（女频模版）</title>
+  <title>网文辅助写作器（女频）</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.0/js/bootstrap.min.js"></script>
@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
   <style>
     body {
-      padding-bottom: 24px;
       font-family: "SimHei", "PMingLiU", "Helvetica", "sans-serif";
       background-color: #f8f9fa;
       font-size: 13px;
@@ -41,7 +40,8 @@
       border-color: #ffb6b4;
       box-shadow: 0 0 0 1px #ffb6b4;
     }
-    .form-group textarea {
+    .form-group textarea,
+    textarea.form-control {
       resize: none;
     }
     .ui-widget {
@@ -74,6 +74,18 @@
       border-bottom-color: rgb(220, 53, 69);
       border-left-color: rgb(220, 53, 69);
     }
+    footer {
+      margin-top: 40px;
+      background-color: #fff;
+      webkit-box-shadow: 0 1px 3px rgba(0,0,0,.3);
+      box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    }
+    .footer-content {
+      padding: 20px 0px 20px 0px;
+      color: #ff5754;
+      text-align: right;
+      font-size: 10px;
+    }
   </style>
   <script>
   var ui = {}
@@ -82,8 +94,9 @@
     startGenre: ['重生流', '穿越流', '无限流', '回炉流', '送菜流', '神豪流', '陨落流'],
     classicPlots: ['救美', '采药', '夺宝', '炼丹', '反抢', '踏人', '体悟', '副本', '升级', '反杀'],
     masterPlots: ['探寻', '探险', '追逐', '解救', '逃跑', '复仇', '推理故事', '对手戏', '落魄之人', '诱惑', '变形计', '转变', '成长', '爱情故事', '不伦之恋', '牺牲', '自我发现之旅', '可悲的无节制行为', '盛衰沉浮'],
+    DramaticSituations: ['哀求脱罪', '救人离祸', '伐罪复仇', '亲族仇怨', '逃离冤罪', '天灾人祸', '落于灾殃', '诛国一夫', '立业奠基', '押人为质', '不解之事', '事物之得', '亲族之恨', '亲族之争', '引杀之姦', '人之狂狷', '致死轻率', '爱之瞽罪', '杀亲不知', '捨身为道', '为亲牺牲', '为情皆舍', '必舍所爱', '上下之争', '不伦通姦', '爱生之罪', '所爱之耻', '情爱之障', '所爱之敌', '所图之物', '与神争胜', '有误之妒', '有误决断', '悔恨所为', '复得所爱', '失其所爱'],
     speed: ['人物成长速度', '情感发展速度', '仇恨完结速度', '目标完成速度'],
-    desire: ['秘笈', '装备', '法宝', '男票', '女票', '队友', '丹药', '道具', '新线索', '新地图', '亲情', '报恩', '报仇'],
+    desire: ['秘笈', '装备', '法宝', '男票', '女票', '队友', '丹药', '道具', '新线索', '新地图', '亲情', '报恩', '报仇', '革命', '壮举'],
     excite: ['先仰后扬', '装备法宝', '收获女神', '收获男神', '成长', '优越感', '送菜']
   };
   // 
@@ -91,9 +104,10 @@
     selStratGenre: {title: '开篇手法', dataKey: 'startGenre'},
     selClassicPlots: {title: '网文情节', dataKey: 'classicPlots'},
     selMasterPlots: {title: '电影情节', dataKey: 'masterPlots'},
+    selDramaticSituations: {title: '三十六剧', dataKey: 'DramaticSituations'},
     selSpeed: {title: '发展速度', dataKey: 'speed'},
     selDesire: {title: '生现欲望', dataKey: 'desire'},
-    selExcite: {title: '爽点', dataKey: 'excite'}
+    selExcite: {title: '爽点', dataKey: 'excite'},
   }
 
   function initUI() {
@@ -113,6 +127,8 @@
     ui.taOutline2 = $("#taOutline2");
     ui.taOutline3 = $("#taOutline3");
     ui.taOutline4 = $("#taOutline4");
+
+    ui.taSummary = $('#taSummary');
   }
 
   $(function(){
@@ -137,6 +153,8 @@
     renderLocalStorage(ui.taOutline2, '细纲2');
     renderLocalStorage(ui.taOutline3, '细纲3');
     renderLocalStorage(ui.taOutline4, '细纲4');
+
+    renderLocalStorage(ui.taSummary, '总结');   
 
     // 清理 
     ui.btnClean.click(function() {
@@ -205,7 +223,7 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="#">网文辅助写作器</a>
+      <a class="navbar-brand" href="">网文辅助写作器</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -314,23 +332,37 @@
     </div>
 
     <div class="row">
-    <div class="col-12 col-sm-12">
+    <div class="col-12">
       <hr />
+    </div>
+    <div class="col-8 col-sm-6 col-md-4 mb-2">
       <div class="mb-2">反问：</div>
       1. 用50字对你的故事进行概括。<br />
-      2. 故事的中心目的是什麽？（问句形式）<br />
-      3. 主角的目的是什麽？<br />
-      4. 主角的动机是什麽？<br />
-      5. 谁或什麽阻碍主角？<br />
-      6. 为了实现目的，主角制订什麽行动计划？<br />
-      7. 核心冲突是什麽？<br />
-      8. 主角成长是什麽？<br />
+      2. 故事的<span class="highlight">中心目的</span>是什麽？（问句形式）<br />
+      3. 主角的<span class="highlight">目的</span>是什麽？<br />
+      4. 主角的<span class="highlight">动机</span>是什麽？<br />
+      5. 谁或什麽<span class="highlight">阻碍</span>主角？<br />
+      6. 为了实现目的，主角制订什麽<span class="highlight">行动计划</span>？<br />
+      7. 核心<span class="highlight">冲突</span>是什麽？<br />
+      8. 主角<span class="highlight">成长</span>是什麽？<br />
       9. 是主角还是行动为核心？<br />
-      10. 如何维持气氛？<br />
-      12. 如何推至高潮？<br />
+      10. 如何维持<span class="highlight">气氛</span>？<br />
+      12. 如何推至<span class="highlight">高潮</span>？<br />
+    </div>
+    <div class="col-12 col-sm-6 col-md-8">
+      <textarea class="form-control" id="taSummary" rows="12"></textarea>
     </div>
     </div>
 
   </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        @Copyright © 2020 匡匡稻 QQ: 571287855
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
