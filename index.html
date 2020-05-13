@@ -275,17 +275,24 @@
 
     // 主题
     ui.btnStyle.text("夜间模式");
-    var style = 0;
+    var style = localStorage.getItem('样式');
+    if (style=='夜间') {
+      ui.body.addClass('dark');
+      ui.btnStyle.text("白天模式");
+    }
+    if (!style) style='夜间';
     ui.btnStyle.click(function() {
-      if (style==0) {
+      if (style=='夜间') {
         ui.btnStyle.text("白天模式");
-        style=1;
+        style='白天';
         ui.body.addClass('dark');
+        localStorage.setItem('样式', '夜间');
       }
-      else if (style==1) {
+      else if (style=='白天') {
         ui.btnStyle.text("夜间模式");
-        style=0;
+        style='夜间';
         ui.body.removeClass('dark')
+        localStorage.setItem('样式', '白天');
       }
     });
   });
