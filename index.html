@@ -105,6 +105,67 @@
     .about-me-img {
       width: 200px;
     }
+
+    /*
+     * 夜间模式
+     */
+    .dark {
+      background-color: #16151a;
+      color: #fff;
+    }
+    .dark .highlight {
+      color: #ff006e;
+    }
+    .dark .bg-light, .dark footer {
+      background-color: #24232a!important;
+    }
+    .dark .navbar-light .navbar-brand, .dark .navbar-light .navbar-brand:hover {
+      color: #ff006e;
+    }
+    .dark #content, .dark .about-me-content {
+      background-color: #24232a!important;
+    }
+    .dark textarea {
+      color: #fff;
+      background-color: #24232a;
+      border: 1px solid #555262;
+    }
+    .dark .form-text.text-muted {
+      color: #fff!important;
+    }
+    .dark .form-control:focus {
+      color: #fff;
+      background-color: #302f37;
+      border-color: #ff006e;
+      box-shadow: 0 0 0 0px #ff006e;
+    }
+    .dark widget-content .ui-state-default, 
+    .dark .ui-widget-header .ui-state-default, 
+    .dark .ui-button, 
+    .dark html .ui-button.ui-state-disabled:hover, 
+    .dark html .ui-button.ui-state-disabled:active {
+      color: #fff;
+      background-color: #24232a;
+      border: 1px solid #555262;
+    }
+    .dark .ui-state-active,
+    .dark .ui-widget-content .ui-state-active,
+    .dark .ui-widget-header .ui-state-active,
+    .dark a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+      color: #fff;
+      background-color: #ff006e;
+      border: 1px solid #ff7cb4;
+    }
+    .dark .ui-visual-focus{
+      box-shadow:0 0 3px 1px #ff006e;
+    }
+    .dark .footer-content {
+      color: #ff006e;
+    }
+    .btn-outline-danger {
+      color: #ff006e;
+      border-color: #ff006e;
+    }
   </style>
   <script>
   var ui = {}
@@ -140,7 +201,9 @@
     ui.input = $("input")
     ui.content2 = $("#content2");
     ui.btnClean = $("#btnClean");
+    ui.btnStyle = $('#btnStyle');
     ui.alClose = $(".close");
+    ui.body = $("body");
 
     ui.taCharacter1 = $("#taCharacter1");
     ui.taCharacter2 = $("#taCharacter2");
@@ -208,6 +271,22 @@
     });
     ui.alClose.click(function() {
       ui.divAboutMeContent.toggle();
+    });
+
+    // 主题
+    ui.btnStyle.text("夜间模式");
+    var style = 0;
+    ui.btnStyle.click(function() {
+      if (style==0) {
+        ui.btnStyle.text("白天模式");
+        style=1;
+        ui.body.addClass('dark');
+      }
+      else if (style==1) {
+        ui.btnStyle.text("夜间模式");
+        style=0;
+        ui.body.removeClass('dark')
+      }
     });
   });
 
@@ -279,6 +358,7 @@
         <ul class="navbar-nav mr-auto">
         </ul>
         <form class="form-inline my-2 my-lg-0">
+          <button class="btn btn-sm btn-outline-danger my-2 mr-3 my-sm-0" type="button" id="btnStyle"></button>
           <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" type="button" id="btnClean">清除</button>
         </form>
       </div>
