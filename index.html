@@ -25,7 +25,7 @@
     .highlight {
       color: #ff5754;
     }
-    #content,
+    .write-content,
     .about-me-content {
       margin-top: 12px;
       padding-top: 24px;
@@ -105,10 +105,19 @@
     .about-me-img {
       width: 200px;
     }
+    .close {
+      font-size: 22px;
+    }
 
     /*
      * 夜间模式
      */
+    .dark a {
+      color: #ff006e;
+    }
+    .dark a:hover {
+      color: #ff006e;
+    }
     .dark {
       background-color: #16151a;
       color: #fff;
@@ -122,7 +131,7 @@
     .dark .navbar-light .navbar-brand, .dark .navbar-light .navbar-brand:hover {
       color: #ff006e;
     }
-    .dark #content, .dark .about-me-content {
+    .dark .write-content, .dark .about-me-content {
       background-color: #24232a!important;
     }
     .dark textarea {
@@ -162,9 +171,19 @@
     .dark .footer-content {
       color: #ff006e;
     }
-    .btn-outline-danger {
+    .dark .btn-outline-danger {
       color: #ff006e;
       border-color: #ff006e;
+    }
+    .dark .btn-outline-danger:hover {
+      color: #fff;
+      background-color: #ff006e;
+      border-color: #ff7cb4;
+    }
+    .dark .close {
+      color: #ff006e;
+      text-shadow: none;
+      opacity: 1;
     }
   </style>
   <script>
@@ -280,19 +299,29 @@
       ui.body.addClass('dark');
       ui.btnStyle.text("白天模式");
     }
-    if (!style) style='夜间';
+    else if (style=='白天') {
+      ui.body.removeClass('dark');
+      ui.btnStyle.text("夜间模式");
+    }
+    else if (!style) {
+      ui.btnStyle.text("夜间模式");
+      style='夜间';
+      ui.body.removeClass('dark')
+      localStorage.setItem('样式', '白天');
+    }
+
     ui.btnStyle.click(function() {
       if (style=='夜间') {
         ui.btnStyle.text("白天模式");
-        style='白天';
-        ui.body.addClass('dark');
-        localStorage.setItem('样式', '夜间');
+        ui.body.removeClass('dark');
+        localStorage.setItem('样式', '白天');
+        style = localStorage.getItem('样式');
       }
       else if (style=='白天') {
         ui.btnStyle.text("夜间模式");
-        style='夜间';
-        ui.body.removeClass('dark')
-        localStorage.setItem('样式', '白天');
+        ui.body.addClass('dark')
+        localStorage.setItem('样式', '夜间');
+        style = localStorage.getItem('样式');
       }
     });
   });
@@ -382,18 +411,42 @@
         <div class="mb-2"></div> 
         <img class="about-me-img" src="https://chankuang2008.github.io/novel-tool/2062009398_meitu_1.jpg" class="rounded float-left" alt="照骗"> <br />
         姓名：匡匡稻 <br />
-        年龄：目前25岁（大龄剩货）<br />
+        年龄：90后的大龄剩货 <br />
         工作：金融科技 <br />
         地区：深圳 <br />
         鹅号：571287855 <br />
-        作品：都市除灵大教主 / 炼虫女王：都市末日行 <br />
-        写作年资：初中开始，中途放弃了很多年了。 <br />
         PS: <span class="highlight">照骗</span>是大学时<span class="highlight">Cosplay</span>时拍的，与现实本人<span class="highlight">不符合</span>！<br />
       </div>
     </div>
   </div>
 
-  <div class="container" id="content">
+  <div class="container write-content">
+
+    <div class="row">
+    <div class="col-12 col-sm-12">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-4">
+            <label for="character1">书名</label>
+            <textarea class="form-control" id="bookName" rows="2"></textarea>
+            <small class="form-text text-muted">
+            </small>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="character2">简介</label>
+            <textarea class="form-control" id="bookDescription" rows="2"></textarea>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="character2">创新区</label>
+            <textarea class="form-control" id="bookInnovation" rows="2"></textarea>
+            <small class="form-text text-muted">
+              <span class="highlight">打动责编</span>的亮点
+            </small>
+          </div>
+        </div>
+      </form>
+    </div>
+    </div>
 
     <div class="row">
     <div class="col-12 col-sm-12">
@@ -418,8 +471,6 @@
       </form>
     </div>
     </div>
-
-    <div id="content2"></div>
 
     <div class="row">
     <div class="col-12 col-sm-12">
@@ -454,6 +505,8 @@
       </form>
     </div>
     </div>
+
+    <div id="content2"></div>
 
     <div class="row">
     <div class="col-12 col-sm-12">
