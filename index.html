@@ -109,9 +109,6 @@
     .close {
       font-size: 22px;
     }
-    .updateTime {
-      font-size: 10px;
-    }
     /*
      * 夜间模式
      */
@@ -217,10 +214,6 @@
     selCharacter: {title: '人物（特殊职业 / 讨喜性格）', dataKey: 'character'},
     selTaboo: {title: '禁忌（要好好掌握才能写）', dataKey: 'taboo'},
   }
-  //
-  var domain = '9a5c6fa2.ngrok.io/ws2/save/'; // 选择连接的服务器
-  var ws = null;
-  var isInit = false;
 
   function initUI() {
     ui.tvYear = $('.year')
@@ -232,7 +225,6 @@
     ui.btnStyle = $('#btnStyle');
     ui.alClose = $(".close");
     ui.body = $("body");
-    ui.tvUpdateTime = $(".tvUpdateTime");
 
     ui.taBookName = $("#taBookName");
     ui.taBookDescription = $("#taBookDescription");
@@ -343,83 +335,8 @@
       }
     });
 
-    // wss储存
-    $.getJSON("https://api.ipify.org/?format=json", function(e) {
-      localStorage.setItem('userId', e.ip);
-    });
-    var callback = (data) => {
-      var data = JSON.parse(data);
-      if (data.action=='save')
-        ui.tvUpdateTime.text(data.stime);
-      else if (data.action=='load') {
-        localStorage = JSON.parse(data.data);
-        console.log(localStorage);
-      }
-    }
-    initWebsocket(callback);
-    setInterval(function(){
-      if(ws && localStorage.getItem('userId')) {
-        // 抓取
-        if(!isInit) {
-          sendWebsocket(JSON.stringify({action: 'load', userId: localStorage.getItem('userId')}));
-          isInit = true;
-        }
-        // 传送
-        if(isInit)
-          sendWebsocket(JSON.stringify(localStorage));
-      }
-    }, 1000);
+
   });
-
-  function sendWebsocket(data){
-    if(!ws){
-      console.log("WebSocket还没有建立！不能传送数据！");
-      return false;
-    }
-    waitForSocketConnection(ws, function() {
-      ws.send(data);
-    });
-  }
-
-  function initWebsocket(callback){
-    if ("WebSocket" in window){
-      if(!ws || ws.readyState == 3){
-        ws = new WebSocket("ws://"+domain);
-        console.log('建立WebSocket!');
-      }
-      
-      ws.onopen = function(){
-        console.log("已连接！");
-      }
-      ws.onmessage = function (evt){
-        if (typeof callback === "function") 
-          callback(evt.data);
-        else
-          console.log('callback不是回调!');
-      }
-      ws.onclose = function(){
-        console.log("已关闭！");
-        initWebsocket(callback);
-        console.log("重新连接！");
-      };
-
-    }else{
-      alert("您的浏览器不支持 WebSocket!");
-    }
-  }
-
-  function waitForSocketConnection(socket, callback){
-    setTimeout(function(){
-      if (socket.readyState === 1) {
-        if(callback !== undefined){
-          callback();
-        }
-        return;
-      } else {
-        waitForSocketConnection(socket,callback);
-      }
-    }, 1);
-  };
 
   function renderRowSelector(id, title) {
     // 渲染
@@ -488,7 +405,6 @@
       <div class="collapse navbar-collapse" id="navContent">
         <ul class="navbar-nav mr-auto">
         </ul>
-      <span class="updateTime mr-4"> 最后备份：<span class="tvUpdateTime"></span></span>
         <form class="form-inline my-2 my-lg-0">
           <button class="btn btn-sm btn-outline-danger my-2 mr-3 my-sm-0" type="button" id="btnStyle"></button>
           <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" type="button" id="btnClean">清除</button>
