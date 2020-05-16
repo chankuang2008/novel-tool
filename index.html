@@ -224,6 +224,10 @@
     ui.alClose = $(".close");
     ui.body = $("body");
 
+    ui.taBookName = $("#taBookName");
+    ui.taBookDescription = $("#taBookDescription");
+    ui.taBookInnovation = $("#taBookInnovation");
+
     ui.taCharacter1 = $("#taCharacter1");
     ui.taCharacter2 = $("#taCharacter2");
     ui.taCharacter3 = $("#taCharacter3");
@@ -255,6 +259,10 @@
     }
 
     // 文字框
+    renderLocalStorage(ui.taBookName, '书名');
+    renderLocalStorage(ui.taBookDescription, '简介');
+    renderLocalStorage(ui.taBookInnovation, '创新点子');
+
     renderLocalStorage(ui.taCharacter1, '1号女猪脚');
     renderLocalStorage(ui.taCharacter2, '1号男猪脚');
     renderLocalStorage(ui.taCharacter3, '炮灰配脚');
@@ -428,17 +436,17 @@
         <div class="form-row">
           <div class="form-group col-md-4">
             <label for="character1">书名</label>
-            <textarea class="form-control" id="bookName" rows="2"></textarea>
+            <textarea class="form-control" id="taBookName" rows="2"></textarea>
             <small class="form-text text-muted">
             </small>
           </div>
           <div class="form-group col-md-4">
             <label for="character2">简介</label>
-            <textarea class="form-control" id="bookDescription" rows="2"></textarea>
+            <textarea class="form-control" id="taBookDescription" rows="2"></textarea>
           </div>
           <div class="form-group col-md-4">
-            <label for="character2">创新区</label>
-            <textarea class="form-control" id="bookInnovation" rows="2"></textarea>
+            <label for="character2">创新点子</label>
+            <textarea class="form-control" id="taBookInnovation" rows="2"></textarea>
             <small class="form-text text-muted">
               <span class="highlight">打动责编</span>的亮点
             </small>
