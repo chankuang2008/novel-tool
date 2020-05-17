@@ -109,6 +109,11 @@
     .close {
       font-size: 22px;
     }
+    #taAll {
+      position: absolute;
+      left: -1000px;
+      top: -1000px;
+    }
     /*
      * 夜间模式
      */
@@ -187,6 +192,9 @@
       text-shadow: none;
       opacity: 1;
     }
+    .dark hr {
+      border-top: 1px solid #555262;
+    }
   </style>
   <script>
   var ui = {}
@@ -223,6 +231,7 @@
     ui.content2 = $("#content2");
     ui.btnClean = $("#btnClean");
     ui.btnStyle = $('#btnStyle');
+    ui.btnCopy = $('#btnCopy');
     ui.alClose = $(".close");
     ui.body = $("body");
 
@@ -249,6 +258,7 @@
     ui.taOutline8 = $("#taOutline8");
 
     ui.taSummary = $('#taSummary');
+    ui.taAll = $('#taAll');
   }
 
   $(function(){
@@ -284,6 +294,18 @@
     renderLocalStorage(ui.taOutline8, '细纲8');
 
     renderLocalStorage(ui.taSummary, '总结');   
+
+    // 剪贴板
+    copyToClipboard();
+    ui.btnCopy.click(function () {
+      try {
+        ui.taAll.select();
+        ui.taAll.setSelectionRange(0, 99999);
+      }catch{
+
+      }
+      document.execCommand("copy");
+    });
 
     // 清理 
     ui.btnClean.click(function() {
@@ -390,7 +412,21 @@
     div.on('input',function() {
       // 储存
       localStorage.setItem(key, $(this).val());
+      // 复制到剪贴板
+      copyToClipboard();
     });
+  }
+
+  function copyToClipboard() {
+    var arr = ['书名', '简介', '创新点子', '1号女猪脚', '1号男猪脚', '炮灰配脚', '世界观', '升级系统', '目标', 
+               '细纲1', '细纲2', '细纲3', '细纲4', '细纲5', '细纲6', '细纲7', '细纲8', '总结'];
+    var body = '';
+    for (var v of arr) {
+      var v1 = localStorage.getItem(v);
+      if (v1)
+        body += v+'\r'+v1+'\r\r';
+    }
+    ui.taAll.html(body);
   }
   </script>
 </head>
@@ -406,6 +442,7 @@
         <ul class="navbar-nav mr-auto">
         </ul>
         <form class="form-inline my-2 my-lg-0">
+          <button class="btn btn-sm btn-outline-danger my-2 mr-3 my-sm-0" type="button" id="btnCopy">复制到剪贴板</button>
           <button class="btn btn-sm btn-outline-danger my-2 mr-3 my-sm-0" type="button" id="btnStyle"></button>
           <button class="btn btn-sm btn-outline-danger my-2 my-sm-0" type="button" id="btnClean">清除</button>
         </form>
@@ -620,6 +657,8 @@
       <textarea class="form-control" id="taSummary" rows="12"></textarea>
     </div>
     </div>
+
+    <textarea class="form-control" id="taAll" rows="1"></textarea>
 
   </div>
 
