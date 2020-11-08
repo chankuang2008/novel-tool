@@ -259,10 +259,16 @@
 
     ui.taSummary = $('#taSummary');
     ui.taAll = $('#taAll');
+
+    ui.imgAboutMe = $('about-me-img');
   }
 
   $(function(){
     initUI();
+
+    var url = 'https://chankuang2008.github.io/novel-tool/';
+    var url = window.location.hostname;
+    ui.imgAboutMe.attr('src', url+'img/2062009398_meitu_1.jpg');
 
     // 多项选择
     for (var k in datas2) {
@@ -456,9 +462,9 @@
     <div class="row">
       <div class="col-12 col-sm-12">
         <span>关於我</span>
-        <a href="#" class="close">「关闭」</a>
+        <a href="javascript:void(0);" class="close">「关闭」</a>
         <div class="mb-2"></div> 
-        <img class="about-me-img" src="https://chankuang2008.github.io/novel-tool/2062009398_meitu_1.jpg" class="rounded float-left" alt="照骗"> <br />
+        <img class="about-me-img" src="" class="rounded float-left" alt="照骗"> <br />
         姓名：匡匡稻 <br />
         年龄：90后的大龄剩货 <br />
         工作：金融科技 <br />
@@ -665,7 +671,7 @@
   <footer>
     <div class="container">
       <div class="footer-content">
-        @Copyright © <span class="year"></span> 匡匡稻 | <a href="#" class="aboutMe">关於我</a>
+        @Copyright © <span class="year"></span> 匡匡稻 | <a href="javascript:void(0);" class="aboutMe">关於我</a>
       </div>
     </div>
   </footer>
