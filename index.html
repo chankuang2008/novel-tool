@@ -260,15 +260,20 @@
     ui.taSummary = $('#taSummary');
     ui.taAll = $('#taAll');
 
-    ui.imgAboutMe = $('about-me-img');
+    ui.imgAboutMe = $('.about-me-img');
   }
 
   $(function(){
     initUI();
 
-    var url = 'https://chankuang2008.github.io/novel-tool/';
-    var url = window.location.hostname;
-    ui.imgAboutMe.attr('src', url+'img/2062009398_meitu_1.jpg');
+    var host = window.location.host;
+    if (!host)
+      host = 'https://chankuang2008.github.io/novel-tool/';
+    else
+      host += '/novel-tool/'
+
+    var urlImg = host+'img/2062009398_meitu_1.jpg';
+    ui.imgAboutMe.attr('src', urlImg);
 
     // 多项选择
     for (var k in datas2) {
@@ -325,6 +330,7 @@
     // 自介
     ui.alAboutMe.click(function() {
       ui.divAboutMeContent.toggle();
+      ui.body.animate({ scrollTop: 0 }, "slow");
     });
     ui.alClose.click(function() {
       ui.divAboutMeContent.toggle();
