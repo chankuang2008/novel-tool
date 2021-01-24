@@ -1,3 +1,3 @@
 # novel-tool
-网文辅助写作器
+网络小说大纲写作模版
 https://chankuang2008.github.io/novel-tool/
